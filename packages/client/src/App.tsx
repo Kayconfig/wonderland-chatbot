@@ -13,7 +13,7 @@ function App() {
   });
   return (
     <>
-      <h1>{loading ? 'loading...' : msg}</h1>
+      <h1 className="font-bold p-4 text-3xl">{loading ? 'loading...' : msg}</h1>
     </>
   );
 }
