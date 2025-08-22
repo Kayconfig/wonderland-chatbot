@@ -7,13 +7,13 @@ const app = express();
 const port = process.env.PORT ?? 3000;
 
 app.get('/', async (req: Request, res: Response) => {
-  const modelName = process.env.OLLAMA_MODEL_NAME;
-  res.send(`Hello Kayode!, ollama model is ${modelName}`);
+    const modelName = process.env.OLLAMA_MODEL_NAME;
+    res.send(`Hello Kayode!, ollama model is ${modelName}`);
 });
 app.get('/api/hello', async (req: Request, res: Response) => {
-  res.json({ message: 'hello world' });
+    res.json({ message: 'hello world' });
 });
 
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+    console.log(`Server is running on http://localhost:${port}`);
 });
