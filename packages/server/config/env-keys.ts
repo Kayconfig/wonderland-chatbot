@@ -1,0 +1,5 @@
+export const ENV_KEYS = {
+    OLLAMA_MODEL_NAME: 'OLLAMA_MODEL_NAME',
+    JWT_SECRET: 'JWT_SECRET',
+    JWT_ISSUER: 'JWT_ISSUER',
+};
