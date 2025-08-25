@@ -26,3 +26,7 @@ bun run dev
 ## Author
 
 Kayode Odole
+
+## Licence
+
+MIT
