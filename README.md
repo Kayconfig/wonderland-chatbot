@@ -1,4 +1,15 @@
-# llm-full-stack
+# Wonderland Chatbot
+
+This chatbot was built and serves as a customer support agent for a theme park called wonderland. It consist of both the frontend ( viteJs ) and backend ( bun ).
+
+## Features
+
+- Jwt Authentication 🥴
+- Clean Chat interface
+- Customer support Chatbot
+- Personalized support
+- Linting before commit
+- Contextual and Factual Responses
 
 To install dependencies:
 
@@ -9,7 +20,9 @@ bun install
 To run:
 
 ```bash
-bun run index.ts
+bun run dev
 ```
 
-This project was created using `bun init` in bun v1.2.20. [Bun](https://bun.com) is a fast all-in-one JavaScript runtime.
+## Author
+
+Kayode Odole
