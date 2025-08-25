@@ -8,6 +8,14 @@ import TypingIndicator from './TypingIndicator';
 import type { Messages } from './types/messages';
 import ChatMessages from './ChatMessages';
 import ChatInput, { type ChatFormData } from './ChatInput';
+import popSound from '@/assets/sounds/pop.mp3';
+import notificationSound from '@/assets/sounds/notification.mp3';
+
+const popAudio = new Audio(popSound);
+popAudio.volume = 0.2;
+
+const notificationAudio = new Audio(notificationSound);
+notificationAudio.volume = 0.2;
 
 type ChatResponse = {
     data: { message: string };
@@ -30,9 +38,11 @@ export default function ChatBot() {
         authCtx
             .isAuthenticated()
             .then((userIsAuthenticated) => {
+                console.log({ userIsAuthenticated });
                 setAuthenticated(userIsAuthenticated);
 
                 setShouldCreateChat(userIsAuthenticated);
+                if (!userIsAuthenticated) setLoading(false);
             })
             .catch(() => setErrorOccurred(true));
     }, []);
@@ -41,7 +51,7 @@ export default function ChatBot() {
         if (!loading && !authenticated) {
             navigate(PAGE_PATHS.LOGIN_PAGE);
         }
-    }, [authenticated]);
+    }, [authenticated, loading]);
 
     useEffect(() => {
         if (shouldCreateChat) {
@@ -72,6 +82,7 @@ export default function ChatBot() {
                 showErrToast('unable to send chat, please reload page');
                 return;
             }
+            popAudio.play();
             setIsBotTyping(true);
             setMsgs((prevValue) => [
                 ...prevValue,
@@ -86,6 +97,7 @@ export default function ChatBot() {
                 ...prevValue,
                 { content: resp.data.data.message, role: 'bot' },
             ]);
+            notificationAudio.play();
         } catch (err) {
             // log the error, use sentry in production
             console.error(err);

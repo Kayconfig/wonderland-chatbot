@@ -47,4 +47,7 @@ export const inMemChatRepo: ChatRepository = {
         chat.messages = existingChatMsgs.concat(messages);
         chats?.set(chatId, chat);
     },
+    async size(userId, chatId): Promise<number | undefined> {
+        return chatDb.get(userId)?.get(chatId)?.messages.length;
+    },
 };

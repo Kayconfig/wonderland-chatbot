@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import type { Messages } from './types/messages';
+import remarkGfm from 'remark-gfm';
 
 type ChatMessagesProp = {
     messages: Messages;
@@ -26,13 +27,15 @@ export default function ChatMessages({ messages }: ChatMessagesProp) {
                     key={idx}
                     ref={idx === messages.length - 1 ? lastMsgRef : null}
                     onCopy={onCopyMessage}
-                    className={`px-3 py-1 rounded-xl ${
+                    className={`px-3 max-w-md py-1 rounded-xl ${
                         message.role === 'user'
                             ? 'bg-blue-600 text-white self-end'
                             : 'bg-gray-100 text-black self-start'
                     }`}
                 >
-                    <ReactMarkdown>{message.content}</ReactMarkdown>
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                        {message.content}
+                    </ReactMarkdown>
                 </div>
             ))}
         </div>

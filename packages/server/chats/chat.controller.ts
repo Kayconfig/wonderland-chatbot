@@ -41,6 +41,7 @@ export const chatController = {
             const llm = getOllamaChatModel();
 
             const userMsg = createHumanMsg(prompt);
+
             const msgHistory = await chatService.getMessages(userId, chatId);
 
             const aiMsg = await llm.invoke(msgHistory.concat(userMsg));

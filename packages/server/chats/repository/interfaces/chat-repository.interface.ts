@@ -10,4 +10,5 @@ export interface ChatRepository {
         chatId: string,
         msgs: BaseMessage[]
     ) => Promise<void>;
+    size(userId: string, chatId: string): Promise<number | undefined>;
 }
