@@ -52,8 +52,10 @@ export const chatController = {
                 aiMsg
             );
             res.json({
-                message: aiMsg.content,
                 statusCode: HttpStatusCode.Ok,
+                message: 'prompt sent successfully',
+                data: { message: aiMsg.content },
+                errors: [],
             });
             return;
         } catch (e) {

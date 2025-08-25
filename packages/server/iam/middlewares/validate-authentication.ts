@@ -7,6 +7,7 @@ import { createUnAuthorizedException } from '../../exceptions/unauthorized-reque
 import { UserNotFoundError } from '../../user/errors/user-not-found-error';
 import { userService } from '../../user/user.service';
 import type { IncomingMessageWithAuthUser } from '../classes/incoming-message-with-auth-user';
+import { SESSION_COOKIE_NAME } from '../constants';
 
 function getTokenFromHeader(
     req: IncomingMessageWithAuthUser
@@ -18,19 +19,20 @@ function getTokenFromHeader(
 }
 
 function getTokenFromCookie(req: any): string | undefined {
-    const tokenKey = 'jkrui_re843'; // random text
-    const token = req?.cookies?.[tokenKey];
+    const tokenKey = SESSION_COOKIE_NAME;
+    const token = req?.cookies?.[tokenKey]?.authToken;
     return token;
 }
 
 export async function validateAuthentication(
     req: IncomingMessageWithAuthUser,
-    _: ServerResponse,
+    res: ServerResponse,
     next: NextFunction
 ): Promise<void> {
     try {
         let token: string | undefined =
             getTokenFromHeader(req) ?? getTokenFromCookie(req);
+
         if (!token) {
             next(createUnAuthorizedException('unauthorized'));
             return;

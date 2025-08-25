@@ -1,7 +1,9 @@
 import { HttpStatusCode } from 'axios';
+import cookieparser from 'cookie-parser';
 import 'dotenv';
 import type { NextFunction, Request, Response } from 'express';
 import express from 'express';
+import morgan from 'morgan';
 import { chatRouter } from './chats/chat.router';
 import { KnownHttpException } from './exceptions/known-http-exception';
 import { authRouter } from './iam/auth.router';
@@ -9,8 +11,10 @@ import { authRouter } from './iam/auth.router';
 export const app = express();
 
 /* set middleware */
+app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieparser());
 
 /* register routers */
 app.use('/api/v1/chat', chatRouter);
